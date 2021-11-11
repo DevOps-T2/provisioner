@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: provisioner
+spec:
+  selector:
+    matchLabels:
+      run: provisioner
+  template:
+    metadata:
+      labels:
+        run: provisioner
+    spec:
+      containers:
+        - name: demo
+          image: devops/provisioner
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: provisioner-config
